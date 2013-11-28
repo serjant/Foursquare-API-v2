@@ -14,6 +14,11 @@
 
 typedef void(^Foursquare2Callback)(BOOL success, id result);
 
+typedef enum {
+    CheckinPhoto,
+    VenuePhoto
+} VenuePhotoGroup;
+
 typedef NS_OPTIONS(NSUInteger, FoursquareSortingType) {
 	sortRecent,
 	sortNearby,
@@ -516,11 +521,13 @@ typedef NS_OPTIONS(NSUInteger, FoursquareListGroupType) {
     @param venueID required The venue you want photos for.
     @param limit Number of result to return, up to 500.
     @param offset The number of results to skip. Used for paging.
+    @param group  - If not specified, public venue photos are returned ordered by relevance. Pass venue for public venue photos, ordered by recency. Pass checkin for venue photos from friends (including non-public photos from recent checkins), ordered by recency.
     @returns "photos" field. A count and items of photo. https://developer.foursquare.com/docs/responses/photo
  */
 + (void)venueGetPhotos:(NSString *)venueID
                  limit:(NSNumber *)limit
                 offset:(NSNumber *)offset
+                 group:(VenuePhotoGroup)photoGroup
               callback:(Foursquare2Callback)callback;
 #pragma mark -
 

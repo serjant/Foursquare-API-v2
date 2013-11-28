@@ -694,6 +694,7 @@ static NSMutableDictionary *attributes;
 + (void)venueGetPhotos:(NSString *)venueID
                  limit:(NSNumber *)limit
                 offset:(NSNumber *)offset
+                 group:(VenuePhotoGroup)photoGroup
               callback:(Foursquare2Callback)callback {
     if (!venueID) {
         callback(NO,nil);
@@ -707,6 +708,16 @@ static NSMutableDictionary *attributes;
     
     if (offset) {
         dic[@"offset"] = offset.stringValue;
+    }
+    switch (photoGroup) {
+        case VenuePhoto:
+            dic[@"group"] = @"venue";
+            break;
+        case CheckinPhoto:
+            dic[@"group"] = @"checkin";
+            break;
+        default:
+            break;
     }
     
     NSString *path = [NSString stringWithFormat:@"venues/%@/photos", venueID];
