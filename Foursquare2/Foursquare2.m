@@ -535,7 +535,7 @@ static NSMutableDictionary *attributes;
                                         price:(NSString *)price
                                      callback:(Foursquare2Callback)callback {
 	NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    if ((!near) || (near && !near.length) || (!latitude && !longitude)) {
+    if (((!near) || (near && !near.length)) && (!latitude && !longitude)) {
         NSAssert(NO, @"Foursqure2 venueExploreRecommendedNearByLatitude: near or ll are required parameters.");
     }
 	if (latitude && longitude) {
